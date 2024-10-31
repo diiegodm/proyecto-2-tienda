@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Dinámica</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./java/java.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="div_header">
+            <div class="header_logo">
+                <a href=""><i class="fa-solid fa-hat-cowboy"></i> Sun and Plants</a>
+                <div class="header_opciones">
+                    <ul class="opciones_lista">
+                        <li><a href="">Inicio</a></li>
+                        <li><a href="">Plantas</a></li>
+                        <li><a href="">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="icons">
+                    <ul class="opciones_lista">
+                        <li id="abrirModal" class="abrirModal">
+                            <p><i class="fa-solid fa-cart-shopping"></i></p>
+                            <span id="productosAdd">0</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="contenedor-cart conten_info'">
+            <div class="Cart-produt">
+                <div class="modal" id="modal">
+                    <div class="contenedorCart">
+                        <div class="cantitdad">
+                            <i class="fa-solid fa-plus add"></i>
+                            <span class="cantidad-productos">1</span>
+                            <i class="fa-solid fa-minus less"></i>
+                        </div>
+                        <!-- Producto de ejemplo 1 -->
+                        <div class="productos-item">
+                            <p class="nombre-productos"></p>
+                            <p class="precioproductos"></p>
+                        </div>
+                        
+                        <i class="fa-solid fa-trash cerrar"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="precio-total">
+                <h3 class="precio-total_h3">
+                    <hr>Total:
+                </h3>
+                <span class="price-total">$0.00</span>
+                <button class="pagar">pagar</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

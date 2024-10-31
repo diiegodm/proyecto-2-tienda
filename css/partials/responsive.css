@@ -1,0 +1,38 @@
+@media(max-width: 768px) {
+
+    /* header..... */
+
+
+
+    .div_header {
+        padding-top: 5px;
+        display: block;
+        height: 100px;
+    }
+
+    .opciones_lista {
+
+        display: block;
+    }
+
+    .opciones_lista li {
+
+        padding: 3px;
+
+
+    }
+
+   /* contenido del cuerpo */
+
+
+    .contenido_main {
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr );
+        width: 100%;
+        
+    }
+}
+
+
+
