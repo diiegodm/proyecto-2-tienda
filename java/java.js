@@ -75,7 +75,7 @@ function addToCarClick(planta) {
         if (productoEnCarrito.cantidad < planta.stock) {
             productoEnCarrito.cantidad++;
         } else {
-            alert(`No puedes agregar más unidades de ${planta.nombre}. Stock máximo alcanzado.`);
+            alert(`!!!oyeee¡¡¡  no tenemos mas :(  ${planta.nombre}.`);
         }
     } else {
         
@@ -176,7 +176,7 @@ let $productosAddTotal = document.querySelector('#productosAdd');
 
 $btnTotalPagar.addEventListener('click', () => {
     if (parseInt($productosAddTotal.textContent) === 0) {
-        alert('No puedes pagar, el carrito está vacío.');
+        alert('!!!oyeeeee¡¡¡ el carrito está vacío.');
     } else {
         alert('Gracias por comprar. Procesando pago...');
     }
