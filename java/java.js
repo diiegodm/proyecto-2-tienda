@@ -58,7 +58,7 @@ function crearTarjetasDePlantas() {
         $divContainer.append($divImg, $divTexto, $divBotton);
         $section.appendChild($divContainer);
 
-      
+
         $botton.addEventListener('click', () => addToCarClick(planta));
     });
 
@@ -66,19 +66,19 @@ function crearTarjetasDePlantas() {
     document.body.appendChild($main);
 }
 
-
+// controlar la cantidad de plantitas en las cartas---
 function addToCarClick(planta) {
     let productoEnCarrito = allProductos.find(item => item.id === planta.id);
 
     if (productoEnCarrito) {
-      
+
         if (productoEnCarrito.cantidad < planta.stock) {
             productoEnCarrito.cantidad++;
         } else {
             alert(`!!!oyeee¡¡¡  no tenemos mas :(  ${planta.nombre}.`);
         }
     } else {
-        
+
         allProductos.push({
             ...planta,
             cantidad: 1
@@ -93,11 +93,14 @@ function addToCarClick(planta) {
 $contenedorCart.innerHTML = ""; //esto es para limpiar el carrito (eliminar los ejemplos del html)
 
 function showCart() {
+
+
     $contenedorCart.innerHTML = "";// aqui tambien para limpiar y no repetir codigos 
 
     allProductos.forEach(product => {
         let $cartProduct = document.createElement('div');
         $cartProduct.classList.add('productos-item');
+        let precioTotalProducto = product.precio * product.cantidad;
         $cartProduct.innerHTML = `
             <div class="contenedorCart">
                 <p class="nombre-productos">${product.nombre}</p>
@@ -106,12 +109,12 @@ function showCart() {
                     <span class="cantidad-productos">${product.cantidad}</span>
                     <i class="fa-solid fa-minus less"></i>
                 </div>
-                <span class="precio-productos">${product.precio}$</span>
+                <span class="precio-productos">${precioTotalProducto}$</span>
                 <i class="fa-solid fa-trash cerrar"></i>
             </div>
         `;
 
-   
+
         $cartProduct.querySelector('.cerrar').addEventListener('click', () => {
             allProductos = allProductos.filter(item => item.id !== product.id);
             showCart();
@@ -122,7 +125,9 @@ function showCart() {
         // 
         $cartProduct.querySelector('.add').addEventListener('click', () => {
             if (product.cantidad < product.stock) {
+              
                 product.cantidad++;
+
                 showCart();
                 totalCompra();
             } else {
@@ -133,7 +138,9 @@ function showCart() {
         // boton para eliminar
         $cartProduct.querySelector('.less').addEventListener('click', () => {
             if (product.cantidad > 1) {
+                
                 product.cantidad--;
+
                 showCart();
                 totalCompra();
             } else {
@@ -142,7 +149,15 @@ function showCart() {
                 showCart();
                 actualizarCantidadProductos();
                 totalCompra();
+                // totalitem ()
             }
+
+
+
+          
+
+
+          
         });
 
         $contenedorCart.appendChild($cartProduct);
@@ -152,9 +167,12 @@ function showCart() {
 }
 
 
+
 function actualizarCantidadProductos() {
     let totalCantidad = allProductos.reduce((acc, producto) => acc + producto.cantidad, 0);
     $productosAdd.textContent = totalCantidad;
+ 
+
 }
 
 
@@ -181,6 +199,14 @@ $btnTotalPagar.addEventListener('click', () => {
         alert('Gracias por comprar. Procesando pago...');
     }
 });
+
+
+
+
+
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', iniciar);
