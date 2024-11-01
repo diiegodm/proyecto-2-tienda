@@ -1,94 +1,25 @@
-
-
 let plantasArray = [
-    {
-        id: 1,
-        nombre: 'Monstera Deliciosa',
-        img: "./imagenes/img.1.jpeg",
-        descripción: 'Conocida familiarmente como costilla de Adán o cerimán.',
-        precio:  4,
-        stock: 4
-        
-
-    },
-    {
-        id: 2,
-        nombre: 'Cereus Jamacaru',
-        img: "./imagenes/img.2.jpg",
-        descripción: 'Son perfectas si no tienes tiempo de regar plantas y quitarles las hojas muertas.',
-        precio:  1,
-        stock: 5
-        
-    },
-    {
-        id: 3,
-        nombre: 'Crassula',
-        img: "./imagenes/img.3.jpg",
-        descripción: 'Son perfectas para adornar espacios pequeños.',
-        precio:  3,
-        stock: 5
-    },
-    {
-        id: 4,
-        nombre: 'Epipremnum',
-        img: "./imagenes/img.4.jpeg",
-        descripción: 'Son perfectas para colgar en entradas y espacios exteriores.',
-        precio:  5,
-        stock: 4
-    },
-    {
-        id: 5,
-        nombre: 'Rotomiel Colgante',
-        img: "./imagenes/img.5.webp",
-        descripción: 'Son perfectas para colgar en entradas y espacios exteriores.',
-        precio:  5,
-        stock: 5
-    },
-    {
-        id: 6,
-        nombre: 'Gauchos Oliveros',
-        img: "./imagenes/img.6.jpeg",
-        descripción: 'Son perfectas para colgar en entradas y espacios exteriores.',
-        precio:   5,
-        stock: 5
-    },
-    {
-        id: 7,
-        nombre: 'Olea Europea',
-        img: "./imagenes/img.7.jpg",
-        descripción: 'Son perfectas para decoración de jardín.',
-        precio:  8,
-        stock: 3
-    },
-    {
-        id: 8,
-        nombre: 'Sansevieria Trafasciata',
-        img: "./imagenes/img.8.jpg",
-        descripción: 'Planta popular por su belleza a la hora de decorar exteriores.',
-        precio:  8,
-        stock: 2
-    },
-    {
-        id: 9,
-        nombre: 'Crassula Ovata',
-        img: "./imagenes/img.9.jpg",
-        descripción: 'Planta popular por su belleza a la hora de decorar exteriores.',
-        precio:  5,
-        stock: 2
-    }
+    { id: 1, nombre: 'Monstera Deliciosa', img: "./imagenes/img.1.jpeg", descripción: 'Conocida familiarmente como costilla de Adán o cerimán.', precio: 4, stock: 4 },
+    { id: 2, nombre: 'Cereus Jamacaru', img: "./imagenes/img.2.jpg", descripción: 'Perfecta si no tienes tiempo de regar plantas.', precio: 1, stock: 5 },
+    { id: 3, nombre: 'Crassula', img: "./imagenes/img.3.jpg", descripción: 'Ideal para espacios pequeños.', precio: 3, stock: 5 },
+    { id: 4, nombre: 'Epipremnum', img: "./imagenes/img.4.jpeg", descripción: 'Perfecta para colgar en entradas y exteriores.', precio: 5, stock: 4 },
+    { id: 5, nombre: 'Rotomiel Colgante', img: "./imagenes/img.5.webp", descripción: 'Ideal para colgar en entradas y exteriores.', precio: 5, stock: 5 },
+    { id: 6, nombre: 'Gauchos Oliveros', img: "./imagenes/img.6.jpeg", descripción: 'Ideal para colgar en exteriores.', precio: 5, stock: 5 },
+    { id: 7, nombre: 'Olea Europea', img: "./imagenes/img.7.jpg", descripción: 'Ideal para decoración de jardín.', precio: 8, stock: 3 },
+    { id: 8, nombre: 'Sansevieria Trafasciata', img: "./imagenes/img.8.jpg", descripción: 'Decoración de exteriores.', precio: 8, stock: 2 },
+    { id: 9, nombre: 'Crassula Ovata', img: "./imagenes/img.9.jpg", descripción: 'Ideal para decoración de exteriores.', precio: 5, stock: 2 }
 ];
 
-// Selección de elementos de la página
+
 let $contenedorCart = document.querySelector('.Cart-produt');
 let $productosAdd = document.querySelector('#productosAdd');
+let allProductos = [];
 
-
-// Inicialización de la tienda-----
 function iniciar() {
     crearTarjetasDePlantas();
 }
 
-// Creación dinámica de tarjetas ------
+
 function crearTarjetasDePlantas() {
     let $main = document.createElement('main');
     let $section = document.createElement('section');
@@ -127,7 +58,7 @@ function crearTarjetasDePlantas() {
         $divContainer.append($divImg, $divTexto, $divBotton);
         $section.appendChild($divContainer);
 
-        // Evento para añadir el producto al carrito-----
+      
         $botton.addEventListener('click', () => addToCarClick(planta));
     });
 
@@ -136,129 +67,120 @@ function crearTarjetasDePlantas() {
 }
 
 
-$contenedorCart.innerHTML = "";// se hacew para limpiar y solo agregar uno nuevo
-
-// Agregar producto al carrito----
 function addToCarClick(planta) {
-    let $cartProduct = document.createElement('div');
-    $cartProduct.classList.add('productos-item');
-    $cartProduct.innerHTML = `
-        <div class="contenedorCart">
-            <p class="nombre-productos">${planta.nombre}</p>
-            <div class="cantitdad">
-                <i class="fa-solid fa-plus add"></i>
-                <span class="cantidad-productos">1</span>
-                <i class="fa-solid fa-minus less"></i>
-            </div>
-            <span class="precio-productos">${planta.precio}$</span>
-            <i class="fa-solid fa-trash cerrar"></i>
-        </div>
-    `;
+    let productoEnCarrito = allProductos.find(item => item.id === planta.id);
 
-    // Evento para eliminar producto del carrito----
-    $cartProduct.querySelector('.cerrar').addEventListener('click', () => {
-        $cartProduct.remove();
-        actualizarCantidadProductos(-1);
-        totalCompra();
-    });
-
-    // Evento para aumentar la cantidad del producto----
-    $cartProduct.querySelector('.add').addEventListener('click', () => {
-        let $cantidadElemento = $cartProduct.querySelector('.cantidad-productos');
-        $cantidadElemento.textContent = parseInt($cantidadElemento.textContent) + 1;
-        totalCompra();
-    });
-
-    //para usar los botones---
-    $cartProduct.querySelector('.less').addEventListener('click', () => {
-        let $cantidadElemento = $cartProduct.querySelector('.cantidad-productos');
-        let cantidad = parseInt($cantidadElemento.textContent);
-        if (cantidad > 1) {
-            $cantidadElemento.textContent = cantidad - 1;
-            totalCompra();
+    if (productoEnCarrito) {
+      
+        if (productoEnCarrito.cantidad < planta.stock) {
+            productoEnCarrito.cantidad++;
+        } else {
+            alert(`No puedes agregar más unidades de ${planta.nombre}. Stock máximo alcanzado.`);
         }
-    });
+    } else {
+        
+        allProductos.push({
+            ...planta,
+            cantidad: 1
+        });
+    }
 
-    
-    $contenedorCart.appendChild($cartProduct);
-    actualizarCantidadProductos(1);
+    // Mostrar el carrito 
+    showCart();
     totalCompra();
+    actualizarCantidadProductos();
 }
+$contenedorCart.innerHTML = ""; //esto es para limpiar el carrito (eliminar los ejemplos del html)
 
+function showCart() {
+    $contenedorCart.innerHTML = "";// aqui tambien para limpiar y no repetir codigos 
 
-function actualizarCantidadProductos(cantidad) {
-    let cantidadActual = parseInt($productosAdd.textContent) || 0;
-    $productosAdd.textContent = cantidadActual + cantidad;
-}
+    allProductos.forEach(product => {
+        let $cartProduct = document.createElement('div');
+        $cartProduct.classList.add('productos-item');
+        $cartProduct.innerHTML = `
+            <div class="contenedorCart">
+                <p class="nombre-productos">${product.nombre}</p>
+                <div class="cantitdad">
+                    <i class="fa-solid fa-plus add"></i>
+                    <span class="cantidad-productos">${product.cantidad}</span>
+                    <i class="fa-solid fa-minus less"></i>
+                </div>
+                <span class="precio-productos">${product.precio}$</span>
+                <i class="fa-solid fa-trash cerrar"></i>
+            </div>
+        `;
 
-// Calcular y actualizar el total de la compra------
-function totalCompra() {
-    let total = 0;
-    let $TotalCompra = document.querySelector('.price-total');
-    let itemsCompraTotal = document.querySelectorAll('.productos-item');
+   
+        $cartProduct.querySelector('.cerrar').addEventListener('click', () => {
+            allProductos = allProductos.filter(item => item.id !== product.id);
+            showCart();
+            actualizarCantidadProductos();
+            totalCompra();
+        });
 
-    itemsCompraTotal.forEach(item => {
-        let precioElemento = item.querySelector('.precio-productos');
-        let precio = parseFloat(precioElemento.textContent.replace('$', '')) || 0;
-        let cantidadElemento = item.querySelector('.cantidad-productos');
-        let cantidad = parseInt(cantidadElemento.textContent) || 0;
-        total += precio * cantidad;
+        // 
+        $cartProduct.querySelector('.add').addEventListener('click', () => {
+            if (product.cantidad < product.stock) {
+                product.cantidad++;
+                showCart();
+                totalCompra();
+            } else {
+                alert(`No puedes agregar más unidades de ${product.nombre}. Stock máximo alcanzado.`);
+            }
+        });
+
+        // boton para eliminar
+        $cartProduct.querySelector('.less').addEventListener('click', () => {
+            if (product.cantidad > 1) {
+                product.cantidad--;
+                showCart();
+                totalCompra();
+            } else {
+                // eliminar los item con el boton
+                allProductos = allProductos.filter(item => item.id !== product.id);
+                showCart();
+                actualizarCantidadProductos();
+                totalCompra();
+            }
+        });
+
+        $contenedorCart.appendChild($cartProduct);
     });
 
+    actualizarCantidadProductos();
+}
+
+
+function actualizarCantidadProductos() {
+    let totalCantidad = allProductos.reduce((acc, producto) => acc + producto.cantidad, 0);
+    $productosAdd.textContent = totalCantidad;
+}
+
+
+function totalCompra() {
+    let total = allProductos.reduce((acc, producto) => acc + producto.precio * producto.cantidad, 0);
+    let $TotalCompra = document.querySelector('.price-total');
     $TotalCompra.textContent = `$${total.toFixed(2)}`;
 }
 
-// Evento para mostrar el carrito ---
+
 document.querySelector('.abrirModal').addEventListener('click', () => {
     let $abrirVentana = document.querySelector('.contenedor-cart');
     $abrirVentana.style.display = $abrirVentana.style.display !== 'flex' ? 'flex' : 'none';
 });
 
 
-//seleccionamos el boton de pagar---
-
-
-// Elementos y referencias principales
 let $btnTotalPagar = document.querySelector('.pagar');
-let $productosAddTotal = document.querySelector('#productosAdd'); 
+let $productosAddTotal = document.querySelector('#productosAdd');
 
-
-$btnTotalPagar.addEventListener('click', btnTotalPagar);
-
-
-function btnTotalPagar() {
+$btnTotalPagar.addEventListener('click', () => {
     if (parseInt($productosAddTotal.textContent) === 0) {
         alert('No puedes pagar, el carrito está vacío.');
     } else {
         alert('Gracias por comprar. Procesando pago...');
-        
     }
-}
+});
+
 
 document.addEventListener('DOMContentLoaded', iniciar);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
